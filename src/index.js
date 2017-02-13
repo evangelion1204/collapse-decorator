@@ -10,10 +10,9 @@ export function SimpleCollapse(target, name, descriptor) {
         if (!pendingPromise) {
             pendingPromise = decoratedMethod.apply(this, functionArguments)
                 .then(result => {
-                    return new Promise(resolve => {
-                        pendingPromise = null;
-                        resolve(result);
-                    });
+                    pendingPromise = null;
+
+                    return result;
                 });
 
             return pendingPromise;
@@ -37,10 +36,9 @@ export function CollapseByParams(hashFunc = defaultHashFunction) {
             if (!pendingPromises[hash]) {
                 pendingPromises[hash] = decoratedMethod.apply(this, functionArguments)
                     .then(result => {
-                        return new Promise(resolve => {
-                            pendingPromises[hash] = null;
-                            resolve(result);
-                        });
+                        pendingPromises[hash] = null;
+
+                        return result;
                     });
 
                 return pendingPromises[hash];
@@ -69,11 +67,10 @@ export function Collapse(timeout = 1000, hashFunc = defaultHashFunction) {
 
                 pendingPromises[hash] = decoratedMethod.apply(this, functionArguments)
                     .then(result => {
-                        return new Promise(resolve => {
-                            pendingPromises[hash] = null;
-                            clearTimeout(pendingTimeout);
-                            resolve(result);
-                        });
+                        pendingPromises[hash] = null;
+                        clearTimeout(pendingTimeout);
+
+                        return result;
                     });
 
 
