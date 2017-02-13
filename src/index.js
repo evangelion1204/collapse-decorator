@@ -1,4 +1,6 @@
 export function SimpleCollapse(target, name, descriptor) {
+    assertUsage(target, name, descriptor);
+
     const decoratedMethod = descriptor.value;
     let pendingPromise = null;
 
@@ -23,6 +25,8 @@ export function SimpleCollapse(target, name, descriptor) {
 
 export function CollapseByParams(hashFunc = defaultHashFunction) {
     return function (target, name, descriptor) {
+        assertUsage(target, name, descriptor);
+
         const decoratedMethod = descriptor.value;
         const pendingPromises = new WeakMap();
 
@@ -49,6 +53,8 @@ export function CollapseByParams(hashFunc = defaultHashFunction) {
 
 export function Collapse(timeout = 1000, hashFunc = defaultHashFunction) {
     return function (target, name, descriptor) {
+        assertUsage(target, name, descriptor);
+
         const decoratedMethod = descriptor.value;
         const pendingPromises = new WeakMap();
 
@@ -81,4 +87,14 @@ export function Collapse(timeout = 1000, hashFunc = defaultHashFunction) {
 
 export function defaultHashFunction(...args) {
     return args.join('|');
+}
+
+function assertUsage(target, name, descriptor) {
+    if (typeof target === 'function') {
+        throw new Error('Decorator can only be applied to functions');
+    }
+
+    if (typeof descriptor.value !== 'function') {
+        throw new Error('Decorator can only be applied to functions');
+    }
 }

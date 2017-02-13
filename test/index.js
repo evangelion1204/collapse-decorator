@@ -106,9 +106,19 @@ class MockWithTimeout {
     }
 }
 
-
 describe('Decorators', () => {
     describe('SimpleCollapse', () => {
+        it('should not be used on classes', () => {
+            expect(() => {
+                @SimpleCollapse
+                class Tmp {
+
+                }
+
+                new Tmp();
+            }).to.throw('Decorator can only be applied to functions');
+        });
+
         it('should return the correct result', (done) => {
             const instance = new Mock();
 
@@ -217,6 +227,17 @@ describe('Decorators', () => {
     });
 
     describe('CollapseByParams', () => {
+        it('should not be used on classes', () => {
+            expect(() => {
+                @CollapseByParams()
+                class Tmp {
+
+                }
+
+                new Tmp();
+            }).to.throw('Decorator can only be applied to functions');
+        });
+
         it('should return the correct result', (done) => {
             const instance = new MockWithParams();
 
@@ -369,6 +390,17 @@ describe('Decorators', () => {
     });
 
     describe('Collapse', () => {
+        it('should not be used on classes', () => {
+            expect(() => {
+                @Collapse()
+                class Tmp {
+
+                }
+
+                new Tmp();
+            }).to.throw('Decorator can only be applied to functions');
+        });
+
         it('should return the correct result', (done) => {
             const instance = new MockWithTimeout();
 
