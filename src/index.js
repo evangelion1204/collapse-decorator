@@ -1,8 +1,3 @@
-/**
- Very special to the MyLounge and only used there, fills up the missing MyLounge structure to not break any dependend code
- and to always work with a "complete" structure, cause phoenix will drop keys if sub services don't answer.
- */
-
 export function SimpleCollapse(target, name, descriptor) {
     const decoratedMethod = descriptor.value;
     let pendingPromise = null;
