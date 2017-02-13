@@ -11,7 +11,6 @@ npm install collapse-decorator
 ## Usage
 
 ```js
-
 import { Collapse } from 'collapse-decorator';
 
 
@@ -23,5 +22,24 @@ class Example {
         });
     }
 }
-
 ```
+
+## Custom Hash-Builder
+
+Sometimes it is necessary to use a custom hash builder function, especially if objects are passed as parameters.
+
+```js
+import { Collapse } from 'collapse-decorator';
+
+
+class Example {
+    @Collapse(1000, options => `${options.secure}/${options.path}`)
+    callApi(options) {
+        return new Promise((resolve, reject) => {
+            // do something
+        });
+    }
+}
+```
+
+This will create a hash string for an object, this is not supported by the default hash function.
