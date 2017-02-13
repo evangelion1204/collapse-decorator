@@ -361,8 +361,6 @@ describe('Decorators', () => {
             promises.push(
                 instance.withCollapse('hello', 'world').then((value) => {
                     expect(value).to.be.equal('hello-world');
-                    expect(instance.method).to.have.calledTwice;
-
                 })
             );
 
