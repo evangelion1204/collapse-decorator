@@ -1,7 +1,7 @@
 {
   "name": "collapse-decorator",
   "version": "1.0.0",
-  "description": "A decorator / wrapper to collapse async promises.",
+  "description": "A decorator / annotation to collapse async promises, to have instead of hundred pending promises only one.",
   "main": "lib/index.js",
   "scripts": {
     "predistribute": "babel src --out-dir lib",
